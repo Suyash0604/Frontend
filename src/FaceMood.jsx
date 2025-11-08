@@ -17,6 +17,8 @@ function FaceMood() {
   const [songsLoading, setSongsLoading] = useState(false)
   const [songsError, setSongsError] = useState('')
   const [currentSongId, setCurrentSongId] = useState(null)
+  const playlistRef = useRef(null)
+  const autoScrollDoneRef = useRef(false)
 
   const moodLabel = useMemo(
     () => mood.charAt(0).toUpperCase() + mood.slice(1),
@@ -101,6 +103,7 @@ function FaceMood() {
         latestMoodRef.current = top
         setMood(top)
         setHasDetected(true)
+        autoScrollDoneRef.current = false
       } else {
         setError('No face detected')
       }
@@ -165,10 +168,28 @@ function FaceMood() {
     setCurrentSongId(null)
   }, [songs])
 
+  useEffect(() => {
+    if (
+      !hasDetected ||
+      songsLoading ||
+      songs.length === 0 ||
+      typeof window === 'undefined' ||
+      window.innerWidth >= 1024 ||
+      autoScrollDoneRef.current
+    ) {
+      return
+    }
+
+    if (playlistRef.current) {
+      playlistRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      autoScrollDoneRef.current = true
+    }
+  }, [hasDetected, songsLoading, songs.length])
+
   return (
     <div className="flex w-full justify-center px-1 py-4 lg:h-full lg:items-center lg:justify-center lg:overflow-hidden">
       <div className="flex w-full max-w-6xl flex-col gap-8 overflow-visible rounded-[36px] border border-slate-800/60 bg-slate-900/40 p-2 shadow-[0_40px_120px_rgba(15,23,42,0.45)] backdrop-blur-xl sm:p-4 lg:h-full lg:grid lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-10 lg:p-10">
-        <section className="flex w-full flex-col items-center gap-6 overflow-hidden rounded-3xl border border-slate-800/60 bg-slate-950/50 p-4 shadow-inner shadow-slate-950/50 sm:p-6 lg:h-full">
+        <section className="flex w-full flex-col items-center gap-5 overflow-hidden rounded-3xl border border-slate-800/60 bg-slate-950/50 p-3.5 shadow-inner shadow-slate-950/50 sm:p-5 lg:h-full">
           <div className="w-full space-y-3 text-center lg:text-left">
             {/* <p className="text-xs font-semibold uppercase tracking-[0.45em] text-slate-400">
               Live Mood Feed
@@ -182,7 +203,7 @@ function FaceMood() {
             </p> */}
           </div>
 
-          <div className="relative aspect-[4/5] w-full max-w-md overflow-hidden rounded-[28px] border border-slate-800/70 bg-slate-900/80 shadow-[0_25px_60px_rgba(8,15,35,0.75)] lg:flex-1">
+          <div className="relative w-full max-w-md overflow-hidden rounded-[28px] border border-slate-800/70 bg-slate-900/80 shadow-[0_25px_60px_rgba(8,15,35,0.75)] aspect-[3/4] sm:aspect-[4/5] lg:flex-1">
             <video
               ref={videoRef}
               playsInline
@@ -218,7 +239,10 @@ function FaceMood() {
           
         </section>
 
-        <section className="flex w-full flex-col overflow-hidden rounded-3xl border border-slate-800/60 bg-slate-950/40 p-4 shadow-inner shadow-slate-950/40 sm:p-6 lg:h-full">
+        <section
+          ref={playlistRef}
+          className="flex w-full flex-col overflow-hidden rounded-3xl border border-slate-800/60 bg-slate-950/40 p-4 shadow-inner shadow-slate-950/40 sm:p-6 lg:h-full"
+        >
           <div className="space-y-3">
             <p className="text-xs font-semibold uppercase tracking-[0.45em] text-slate-400">
               Curated Playlist
@@ -357,23 +381,23 @@ function SongCard({ song, isPlaying, onPlay, onPause }) {
   const progressPercent = duration ? Math.min((progress / duration) * 100, 100) : 0
 
   return (
-    <li className="rounded-2xl border border-slate-800/70 bg-slate-950/70 p-5 shadow-inner shadow-slate-950/60 transition hover:border-indigo-500/40">
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <p className="text-lg font-semibold text-white">{song.title}</p>
-          <p className="text-sm text-slate-400">{song.artist}</p>
+    <li className="rounded-2xl border border-slate-800/70 bg-slate-950/70 p-3 shadow-inner shadow-slate-950/60 transition hover:border-indigo-500/40 sm:p-5">
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
+        <div className="flex items-center justify-between gap-3">
+          <p className="text-sm font-semibold text-white sm:text-lg">{song.title}</p>
+          <span className="rounded-full border border-indigo-500/30 bg-indigo-500/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.25em] text-indigo-200 sm:px-3 sm:py-1 sm:text-xs">
+            {song.mood}
+          </span>
         </div>
-        <span className="self-start rounded-full border border-indigo-500/30 bg-indigo-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-indigo-200 sm:self-center">
-          {song.mood}
-        </span>
+        <p className="text-[11px] text-slate-400 sm:text-sm">{song.artist}</p>
       </div>
 
-      <div className="mt-5 flex flex-col gap-4">
-        <div className="flex items-center gap-4">
+      <div className="mt-3 flex flex-col gap-3 sm:mt-5 sm:gap-4">
+        <div className="flex items-center gap-3 sm:gap-4">
           <button
             type="button"
             onClick={handleToggle}
-            className="grid h-12 w-12 place-items-center rounded-full bg-indigo-500 text-white shadow-lg shadow-indigo-500/40 transition hover:bg-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-400/60"
+            className="grid h-11 w-11 place-items-center rounded-full bg-indigo-500 text-white shadow-lg shadow-indigo-500/40 transition hover:bg-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-400/60 sm:h-12 sm:w-12"
           >
             {isPlaying ? (
               <span className="flex items-center gap-[5px]">
@@ -400,7 +424,7 @@ function SongCard({ song, isPlaying, onPlay, onPause }) {
           </div>
         </div>
 
-        <div className="flex items-center justify-between text-[11px] font-medium text-slate-400">
+        <div className="flex items-center justify-between text-[10px] font-medium text-slate-400 sm:text-[11px]">
           <span>{formatTime(progress)}</span>
           <span>{formatTime(duration)}</span>
         </div>
