@@ -203,7 +203,7 @@ function FaceMood() {
             </p> */}
           </div>
 
-          <div className="relative w-full max-w-md overflow-hidden rounded-[28px] border border-slate-800/70 bg-slate-900/80 shadow-[0_25px_60px_rgba(8,15,35,0.75)] aspect-[3/4] sm:aspect-[4/5] lg:flex-1">
+          <div className="relative w-full max-w-md overflow-hidden rounded-[28px] border border-slate-800/70 bg-slate-900/80 shadow-[0_25px_60px_rgba(8,15,35,0.75)] aspect-[10/13] sm:aspect-[4/5] lg:flex-1">
             <video
               ref={videoRef}
               playsInline

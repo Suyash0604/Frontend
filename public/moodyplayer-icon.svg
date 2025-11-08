@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-label="MoodyPlayer icon">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#111827" />
+      <stop offset="100%" stop-color="#080d1b" />
+    </linearGradient>
+  </defs>
+  <rect width="96" height="96" rx="24" fill="url(#bg)" />
+  <g fill="none" stroke="#818cf8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M25 52c0-13 10-23 23-23s23 10 23 23" />
+    <path d="M24 52c-3.5 0-6 2.5-6 6v6c0 3.5 2.5 6 6 6h2c3.5 0 6-2.5 6-6v-6c0-3.5-2.5-6-6-6zm46 0c-3.5 0-6 2.5-6 6v6c0 3.5 2.5 6 6 6h2c3.5 0 6-2.5 6-6v-6c0-3.5-2.5-6-6-6z" />
+    <path d="M36 68c2.5 3.5 6.5 6 12 6s9.5-2.5 12-6" />
+  </g>
+</svg>
+
