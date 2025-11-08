@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import 'tailwindcss';
+
+@layer base {
+  html,
+  body {
+    @apply h-full;
+  }
+
+  #root {
+    @apply h-full;
+  }
+
+  body {
+    @apply bg-slate-950 text-slate-100 antialiased;
+    @apply overflow-y-auto;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  @screen lg {
+    body {
+      @apply overflow-hidden;
+    }
+  }
+
+  ::selection {
+    @apply bg-indigo-500/60 text-white;
+  }
+}
