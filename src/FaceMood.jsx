@@ -167,8 +167,8 @@ function FaceMood() {
 
   return (
     <div className="flex w-full justify-center px-1 py-4 lg:h-full lg:items-center lg:justify-center lg:overflow-hidden">
-      <div className="flex w-full max-w-6xl flex-col gap-8 overflow-visible rounded-[36px] border border-slate-800/60 bg-slate-900/40 p-6 shadow-[0_40px_120px_rgba(15,23,42,0.45)] backdrop-blur-xl lg:h-full lg:grid lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-10 lg:p-10">
-        <section className="flex w-full flex-col items-center gap-6 overflow-hidden rounded-3xl border border-slate-800/60 bg-slate-950/50 p-8 shadow-inner shadow-slate-950/50 lg:h-full">
+      <div className="flex w-full max-w-6xl flex-col gap-8 overflow-visible rounded-[36px] border border-slate-800/60 bg-slate-900/40 p-2 shadow-[0_40px_120px_rgba(15,23,42,0.45)] backdrop-blur-xl sm:p-4 lg:h-full lg:grid lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-10 lg:p-10">
+        <section className="flex w-full flex-col items-center gap-6 overflow-hidden rounded-3xl border border-slate-800/60 bg-slate-950/50 p-4 shadow-inner shadow-slate-950/50 sm:p-6 lg:h-full">
           <div className="w-full space-y-3 text-center lg:text-left">
             {/* <p className="text-xs font-semibold uppercase tracking-[0.45em] text-slate-400">
               Live Mood Feed
@@ -218,7 +218,7 @@ function FaceMood() {
           
         </section>
 
-        <section className="flex w-full flex-col overflow-hidden rounded-3xl border border-slate-800/60 bg-slate-950/40 p-8 shadow-inner shadow-slate-950/40 lg:h-full">
+        <section className="flex w-full flex-col overflow-hidden rounded-3xl border border-slate-800/60 bg-slate-950/40 p-4 shadow-inner shadow-slate-950/40 sm:p-6 lg:h-full">
           <div className="space-y-3">
             <p className="text-xs font-semibold uppercase tracking-[0.45em] text-slate-400">
               Curated Playlist
